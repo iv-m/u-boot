@@ -39,8 +39,20 @@ secondary_harts_relocation_error:
 .section .text
 .globl _start
 _start:
+
+#if (defined CONFIG_SPL_BUILD) && (defined CONFIG_TARGET_LIGHT_C910)
+	/* Enable cache ASAP as LIGHT's requirement */
+	jal	icache_enable
+	jal	dcache_enable
+#endif
+
 #if CONFIG_IS_ENABLED(RISCV_MMODE)
 	csrr	a0, CSR_MHARTID
+#endif
+
+#if (defined CONFIG_SPL_BUILD) && (defined CONFIG_TARGET_ICE_C910)
+	li x3, 128
+	csrs 0x7cb, x3
 #endif
 
 	/* save hart id and dtb pointer */
