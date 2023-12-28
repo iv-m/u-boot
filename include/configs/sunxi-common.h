@@ -99,7 +99,7 @@
 
 /* Ethernet support */
 
-#ifdef CONFIG_ARM64
+#if defined(CONFIG_ARM64) || defined(CONFIG_RISCV)
 /*
  * Boards seem to come with at least 512MB of DRAM.
  * The kernel should go at 512K, which is the default text offset (that will
@@ -173,7 +173,7 @@
 	"fdtoverlay_addr_r=" FDTOVERLAY_ADDR_R "\0" \
 	"ramdisk_addr_r=" RAMDISK_ADDR_R "\0"
 
-#ifdef CONFIG_ARM64
+#if defined(CONFIG_ARM64) || defined(CONFIG_RISCV)
 
 #define MEM_LAYOUT_ENV_EXTRA_SETTINGS \
 	"kernel_comp_addr_r=" KERNEL_COMP_ADDR_R "\0" \
