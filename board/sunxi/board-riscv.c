@@ -617,6 +617,15 @@ int ft_board_setup(void *blob, struct bd_info *bd)
 	if (r)
 		return r;
 #endif
+	/*
+	 * XXX: for the current sunxi boards, we know there's just one bank;
+	 * we should revisit this code if this changes in the future
+	 */
+	printf("Fixing up memory in fdt: 0x%lx 0x%llx\n", gd->ram_base, gd->ram_size);
+	r = fdt_fixup_memory(blob, gd->ram_base, gd->ram_size);
+	if (r)
+		return r;
+
 	return 0;
 }
 
